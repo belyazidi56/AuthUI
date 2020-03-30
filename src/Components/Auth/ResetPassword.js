@@ -1,7 +1,9 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../Context/Auth/UserContext";
 
 export default function ResetPassword() {
+  const user = useContext(UserContext);
     return (
       <>
         <div className="min-h-screen flex items-center text-center justify-center bg-gray-50 ">
@@ -10,16 +12,42 @@ export default function ResetPassword() {
               <h1 className="font-bold text-3xl text-blue-800">
                 Reset Password
               </h1>
-              
-              <form>
+              {/*Error Message */}
+              <p
+                id="error"
+                className={
+                  user.iserror
+                    ? "text-red-700 bg-red-200 mt-5 rounded-lg p-5"
+                    : "hidden"
+                }
+              >
+                {user.errorMsg}
+              </p>
+
+              {/*Success Message */}
+              <p
+                id="success"
+                className={
+                  user.issuccess
+                    ? "text-green-700 bg-green-200 mt-5 rounded-lg p-5"
+                    : "hidden"
+                }
+              >
+                <strong className="block"> Done !</strong> You will receive a
+                message in you email to restore account
+              </p>
                 <div className="mx-auto font-bold text-xl leading-8 mt-16">
                   <input
                     className="border border-gray-400 rounded-md p-3 mb-3"
                     type="text"
                     placeholder="Enter Your Email"
+                    onChange={e=>user.setEmail(e.target.value)}
                   />
                 </div>
-                <button className="bg-blue-500 hover:bg-blue-700 rounded-full p-3 block mx-auto mt-3 w-64 font-bold text-white">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 rounded-full p-3 block mx-auto mt-3 w-64 font-bold text-white"
+                  onClick={user.resetPassword}
+                >
                   Send Password Reset Link
                 </button>
                 <div className="mt-6">
@@ -32,7 +60,6 @@ export default function ResetPassword() {
                     </Link>
                   </div>
                 </div>
-              </form>
             </div>
           </div>
         </div>
