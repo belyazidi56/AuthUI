@@ -5,7 +5,7 @@ export const UserContext = createContext();
 
 // This context provider is passed to any component requiring the context
 export const UserProvider = ({ children }) => {
-  const [fullname, setFullname] = useState("youssef");
+  const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfpassword] = useState("");
